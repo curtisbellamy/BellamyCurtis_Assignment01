@@ -5,26 +5,47 @@
 #ifndef BELLAMYCURTIS_ASSIGNMENT01_MATRIX_HPP
 #define BELLAMYCURTIS_ASSIGNMENT01_MATRIX_HPP
 #include <vector>
+#include <iostream>
 
 
-namespace comp3512 {
-    using namespace std;
 
-    class matrix {
-        vector<vector<double>> myVector;
-    public:
-        matrix();
+using namespace std;
 
-        matrix(int n);
+class matrix {
+    //vector<vector<double>> *myVector = new vector<vector<double>>;
+    vector<vector<double>> myVector;
+    static constexpr double TOLERANCE = 0.2;
 
-        matrix(int r, int c);
 
-        matrix(vector<vector<double>> vec);
+public:
+    matrix();
 
-        void print();
+    matrix(int n);
 
-    };
-}
+    matrix(int r, int c);
+
+    matrix(vector<vector<double>> vec);
+
+    void print() const;
+
+    void set_value(int r, int c, double val);
+
+    double get_value(int r, int c) const;
+
+    void clear();
+
+    ~matrix();
+
+    friend ostream &operator<<(ostream &os, const matrix &obj);
+
+    friend bool operator== (const matrix& lhs, const matrix& rhs);
+
+    friend bool operator!= (const matrix& lhs, const matrix& rhs);
+
+    matrix& operator++ ();
+
+};
+
 
 
 #endif //BELLAMYCURTIS_ASSIGNMENT01_MATRIX_HPP
