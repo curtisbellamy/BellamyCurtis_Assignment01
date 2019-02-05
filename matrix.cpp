@@ -22,6 +22,7 @@ matrix::matrix(int n) {
             throw exception();
     }catch (exception e){
         cerr << "Error occurred. Integer must be positive and greater than zero." << endl;
+        exit(1);
     }
     myVector.resize(n, vector<double>(n));
 
@@ -43,6 +44,7 @@ matrix::matrix(int r, int c) {
 
     } catch (exception &e) {
         cerr << "Exception occurred. Input numbers must be greater than zero." << endl;
+        exit(1);
     }
 }
 
@@ -64,6 +66,7 @@ matrix::matrix(vector<vector<double>> vec) {
 
     } catch (exception e) {
         cerr << "Error occurred. Vector size must be a perfect square." << endl;
+        exit(1);
     }
 }
 
@@ -78,6 +81,7 @@ void matrix::set_value(int r, int c, double val) {
             myVector[r][c] = val;
     } catch (exception e){
         cerr << "Error occurred. Array indexes do not exist." << endl;
+        exit(1);
     }
 }
 
@@ -93,6 +97,7 @@ double matrix::get_value(int r, int c) const {
             return myVector[r][c];
     } catch (exception e){
         cerr << "Error occurred. Array indexes do not exist." << endl;
+        exit(1);
     }
 }
 
@@ -154,6 +159,129 @@ bool operator!= (const matrix& lhs, const matrix& rhs){
         }
     }
     return false;
+
+}
+
+//prefix
+matrix& matrix::operator++() {
+    for (int i = 0; i < myVector.size(); ++i) {
+        for (int j = 0; j < myVector[i].size(); ++j) {
+            myVector[i][j] += 1.0;
+        }
+    }
+    return *this;
+}
+
+//postfix
+matrix matrix::operator++(int x) {
+    matrix temp(*this);
+    operator++();
+    return temp;
+}
+
+matrix& matrix::operator=(matrix rhs) {
+    mySwap(*this, rhs);
+    return *this;
+}
+
+void mySwap(matrix &first, matrix &second) {
+    using std::swap;
+    swap(first.myVector, second.myVector);
+}
+
+matrix& matrix::operator+=(const matrix& rhs) {
+    try{
+        if (rhs.myVector.size() != myVector.size() || rhs.myVector[0].size() != myVector[0].size())
+            throw exception();
+        else {
+            for (int i = 0; i < myVector.size(); ++i) {
+                for (int j = 0; j < myVector[i].size(); ++j) {
+                    myVector[i][j] += rhs.myVector[i][j];
+                }
+            }
+            return *this;
+        }
+    } catch (exception e){
+        cerr << "Error occurred. Vectors must be the same size." << endl;
+        exit(1);
+    }
+}
+
+matrix& matrix::operator-=(const matrix &rhs) {
+    try{
+        if (rhs.myVector.size() != myVector.size() || rhs.myVector[0].size() != myVector[0].size())
+            throw exception();
+        else {
+            for (int i = 0; i < myVector.size(); ++i) {
+                for (int j = 0; j < myVector[i].size(); ++j) {
+                    myVector[i][j] -= rhs.myVector[i][j];
+                }
+            }
+            return *this;
+        }
+    } catch (exception e){
+        cerr << "Error occurred. Vectors must be the same size." << endl;
+        exit(1);
+    }
+}
+
+matrix operator+(matrix lhs, const matrix &rhs) {
+    try{
+        if (lhs.myVector.size() != rhs.myVector.size() || lhs.myVector[0].size() != rhs.myVector[0].size())
+            throw exception();
+        else {
+            for (int i = 0; i < lhs.myVector.size(); ++i) {
+                for (int j = 0; j < lhs.myVector[i].size(); ++j) {
+                    lhs.myVector[i][j] += rhs.myVector[i][j];
+                }
+            }
+            return lhs;
+        }
+    } catch (exception e){
+        cerr << "Error occurred. Vectors must be the same size." << endl;
+        exit(1);
+    }
+}
+
+matrix operator-(matrix lhs, const matrix &rhs) {
+    try{
+        if (lhs.myVector.size() != rhs.myVector.size() || lhs.myVector[0].size() != rhs.myVector[0].size())
+            throw exception();
+        else {
+            for (int i = 0; i < lhs.myVector.size(); ++i) {
+                for (int j = 0; j < lhs.myVector[i].size(); ++j) {
+                    lhs.myVector[i][j] -= rhs.myVector[i][j];
+                }
+            }
+            return lhs;
+        }
+    } catch (exception e){
+        cerr << "Error occurred. Vectors must be the same size." << endl;
+        exit(1);
+    }
+}
+
+matrix operator*(matrix lhs, const matrix &rhs) {
+    try{
+        if(lhs.myVector[0].size() != rhs.myVector.size())
+            throw exception();
+        else{
+
+            for (int i = 0; i < ; ++i) {
+                
+            }
+        }
+
+    } catch (exception e){
+        cerr << "Error occurred. In order to multiply, the number of columns "
+                "in the first matrix must be equal to the number of rows in the second matrix.";
+        exit(1);
+    }
+
+
+}
+
+matrix& matrix::operator*=(const matrix &rhs) {
 
 }
 

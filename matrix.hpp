@@ -12,9 +12,9 @@
 using namespace std;
 
 class matrix {
-    //vector<vector<double>> *myVector = new vector<vector<double>>;
     vector<vector<double>> myVector;
-    static constexpr double TOLERANCE = 0.2;
+    vector<vector<double>> myVector2;
+    static constexpr double TOLERANCE = 0.1;
 
 
 public:
@@ -42,7 +42,28 @@ public:
 
     friend bool operator!= (const matrix& lhs, const matrix& rhs);
 
+    //prefix
     matrix& operator++ ();
+
+    //postfix
+    matrix operator++ (int x);
+
+    matrix& operator=(matrix rhs);
+
+    friend void mySwap(matrix& first, matrix& second);
+
+    friend matrix operator+(matrix lhs, const matrix& rhs);
+
+    friend matrix operator-(matrix lhs, const matrix& rhs);
+
+    matrix& operator+=(const matrix& rhs);
+
+    matrix& operator-=(const matrix& rhs);
+
+    friend matrix operator*(matrix lhs, const matrix& rhs);
+
+    matrix& operator*=(const matrix& rhs);
+
 
 };
 
