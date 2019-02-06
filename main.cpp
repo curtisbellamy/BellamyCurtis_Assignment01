@@ -5,30 +5,24 @@
 using namespace std;
 
 int main() {
-    vector<vector<double>> myVector;
-    myVector.resize(9, vector<double>(9));
-    for (int i = 0; i < myVector.size(); i++) {
-        double k = 0.0;
-        for (int j = 0; j < myVector[i].size(); j++) {
-            myVector[i][j] = k;
-            k++;
-        }
-    }
 
-    vector<vector<double>> myVector2;
-    myVector2.resize(10, vector<double>(9));
-    for (int i = 0; i < myVector2.size(); i++) {
-        double k = 0.0;
-        for (int j = 0; j < myVector2[i].size(); j++) {
-            myVector2[i][j] = k;
-            k++;
-        }
-    }
-    matrix test(5, 6);
+    double arr[9] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
+    double arr3[9] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
 
-    cout << test;
+    double arr2[4] = {3.0, 4.0};
 
+    matrix test(arr, 9);
+    matrix test2(arr2, 4);
+    matrix test3(arr3, 9);
 
+    matrix test4(3, 6);
+
+    cout << test << endl;
+
+    //test * test4;
+    //cout << test;
+
+    cout << test * test4;
 
 
     return 0;

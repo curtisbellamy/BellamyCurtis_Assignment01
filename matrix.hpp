@@ -13,7 +13,6 @@ using namespace std;
 
 class matrix {
     vector<vector<double>> myVector;
-    vector<vector<double>> myVector2;
     static constexpr double TOLERANCE = 0.1;
 
 
@@ -24,7 +23,7 @@ public:
 
     matrix(int r, int c);
 
-    matrix(vector<vector<double>> vec);
+    matrix(double arr[], int arraySize);
 
     void print() const;
 

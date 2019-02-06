@@ -49,18 +49,16 @@ matrix::matrix(int r, int c) {
 }
 
 
-matrix::matrix(vector<vector<double>> vec) {
-    double squareRoot = sqrt(vec.size());
+matrix::matrix(double arr[], int arraySize) {
+    double squareRoot = sqrt(arraySize);
     try {
         if (squareRoot - floor(squareRoot) != 0) {
             throw exception();
         } else {
 
-            myVector.resize(vec.size(), vector<double>(vec.size()));
-            for (int i = 0; i < vec.size(); i++) {
-                for (int j = 0; j < vec[i].size(); j++) {
-                    myVector[i][j] = vec[i][j];
-                }
+            myVector.resize(squareRoot, vector<double>(squareRoot));
+            for(int i = 0; i < arraySize; i++) {
+                myVector[i / squareRoot][i % (int) squareRoot] = arr[i];
             }
         }
 
@@ -111,8 +109,7 @@ void matrix::clear() {
 
 
 matrix::~matrix() {
-    myVector.clear(); // better way to do this??
-    // because not using new keyword, gets dealloocated on stack
+    // because not using new keyword, gets de alloocated on stack
 }
 
 
@@ -134,8 +131,8 @@ bool operator== (const matrix& lhs, const matrix& rhs){
     else {
         for (int i = 0; i < lhs.myVector.size(); i++) {
             for (int j = 0; j < lhs.myVector[i].size(); j++) {
-//                if (lhs.get_value(i, j) != rhs.get_value(i, j)) {
-                if((std::max(lhs.get_value(i, j), rhs.get_value(i, j)) - std::min(lhs.get_value(i, j), rhs.get_value(i, j))) > matrix::TOLERANCE){
+                //if((std::max(lhs.get_value(i, j), rhs.get_value(i, j)) - std::min(lhs.get_value(i, j), rhs.get_value(i, j))) > matrix::TOLERANCE){
+                if(abs(lhs.get_value(i, j) - rhs.get_value(i, j) > matrix::TOLERANCE)){
                     return false;
                 }
             }
@@ -266,10 +263,18 @@ matrix operator*(matrix lhs, const matrix &rhs) {
         if(lhs.myVector[0].size() != rhs.myVector.size())
             throw exception();
         else{
-
-            for (int i = 0; i < ; ++i) {
-                
+            vector<vector<double>> temp;
+            temp.resize(lhs.myVector.size(), vector<double>(rhs.myVector[0].size()));
+            for(int i = 0; i < lhs.myVector.size(); ++i) {
+                for (int j = 0; j < rhs.myVector[0].size(); ++j) {
+                    for (int k = 0; k < lhs.myVector[0].size(); ++k) {
+                        temp[i][j] = lhs.myVector[i][k] * rhs.myVector[k][j];
+                    }
+                }
             }
+            lhs.myVector = temp;
+            return lhs;
+
         }
 
     } catch (exception e){
@@ -277,12 +282,32 @@ matrix operator*(matrix lhs, const matrix &rhs) {
                 "in the first matrix must be equal to the number of rows in the second matrix.";
         exit(1);
     }
-
-
 }
 
 matrix& matrix::operator*=(const matrix &rhs) {
+    try{
+        if(myVector[0].size() != rhs.myVector.size())
+            throw exception();
+        else{
+            vector<vector<double>> temp;
+            temp.resize(myVector.size(), vector<double>(rhs.myVector[0].size()));
+            for(int i = 0; i < myVector.size(); ++i) {
+                for (int j = 0; j < rhs.myVector[0].size(); ++j) {
+                    for (int k = 0; k < myVector[0].size(); ++k) {
+                        temp[i][j] = myVector[i][k] * rhs.myVector[k][j];
+                    }
+                }
+            }
+            myVector = temp;
+            return *this;
 
+        }
+
+    } catch (exception e){
+        cerr << "Error occurred. In order to multiply, the number of columns "
+                "in the first matrix must be equal to the number of rows in the second matrix.";
+        exit(1);
+    }
 }
 
 
