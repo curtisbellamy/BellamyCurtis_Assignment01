@@ -24,14 +24,5 @@ int main() {
 
     pr.print(markov);
 
-    //cout << transition << endl;
-
-    //cout << importance << endl;
-
-    //cout << transition << endl;
-
-
-
-
     return 0;
 }
