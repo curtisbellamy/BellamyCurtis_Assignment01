@@ -1,28 +1,36 @@
 #include <iostream>
 #include "matrix.hpp"
+#include "GooglePageRank.hpp"
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
 int main() {
 
-    double arr[9] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
-    double arr3[9] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0};
+    double arr[25] = {0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-    double arr2[4] = {3.0, 4.0};
+    matrix test(arr, 25);
 
-    matrix test(arr, 9);
-    matrix test2(arr2, 4);
-    matrix test3(arr3, 9);
+    GooglePageRank pr(arr, 25);
 
-    matrix test4(3, 6);
+    matrix importance = pr.importanceMatrix(test);
 
-    cout << test << endl;
+    matrix teleport = pr.teleportationMatrix(test);
 
-    //test * test4;
-    //cout << test;
+    matrix transition = pr.transitionMatrix(importance, teleport);
 
-    cout << test * test4;
+    matrix markov = pr.markov(transition);
+
+    pr.print(markov);
+
+    //cout << transition << endl;
+
+    //cout << importance << endl;
+
+    //cout << transition << endl;
+
+
 
 
     return 0;

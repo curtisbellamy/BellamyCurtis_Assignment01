@@ -12,6 +12,7 @@
 using namespace std;
 
 class matrix {
+protected:
     vector<vector<double>> myVector;
     static constexpr double TOLERANCE = 0.1;
 
@@ -24,8 +25,6 @@ public:
     matrix(int r, int c);
 
     matrix(double arr[], int arraySize);
-
-    void print() const;
 
     void set_value(int r, int c, double val);
 
@@ -62,6 +61,12 @@ public:
     friend matrix operator*(matrix lhs, const matrix& rhs);
 
     matrix& operator*=(const matrix& rhs);
+
+    int getCol();
+
+    int getRow();
+
+    vector<vector<double>> getVector();
 
 
 };

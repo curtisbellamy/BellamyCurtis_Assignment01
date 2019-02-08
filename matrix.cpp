@@ -116,8 +116,7 @@ matrix::~matrix() {
 ostream &operator<<(std::ostream &os, const matrix& obj) {
     for (int i = 0; i < obj.myVector.size(); i++) {
         for (int j = 0; j < obj.myVector[i].size(); j++) {
-//            cout << showpoint << setprecision(2) <<  myVector[i][j] << " ";
-            os << obj.myVector[i][j] << " ";
+            os << showpoint << fixed << setprecision(4) <<  obj.myVector[i][j] << "  ";
         }
         os << endl;
     }
@@ -131,7 +130,6 @@ bool operator== (const matrix& lhs, const matrix& rhs){
     else {
         for (int i = 0; i < lhs.myVector.size(); i++) {
             for (int j = 0; j < lhs.myVector[i].size(); j++) {
-                //if((std::max(lhs.get_value(i, j), rhs.get_value(i, j)) - std::min(lhs.get_value(i, j), rhs.get_value(i, j))) > matrix::TOLERANCE){
                 if(abs(lhs.get_value(i, j) - rhs.get_value(i, j) > matrix::TOLERANCE)){
                     return false;
                 }
@@ -263,16 +261,7 @@ matrix operator*(matrix lhs, const matrix &rhs) {
         if(lhs.myVector[0].size() != rhs.myVector.size())
             throw exception();
         else{
-            vector<vector<double>> temp;
-            temp.resize(lhs.myVector.size(), vector<double>(rhs.myVector[0].size()));
-            for(int i = 0; i < lhs.myVector.size(); ++i) {
-                for (int j = 0; j < rhs.myVector[0].size(); ++j) {
-                    for (int k = 0; k < lhs.myVector[0].size(); ++k) {
-                        temp[i][j] = lhs.myVector[i][k] * rhs.myVector[k][j];
-                    }
-                }
-            }
-            lhs.myVector = temp;
+            lhs *= rhs;
             return lhs;
 
         }
@@ -294,7 +283,7 @@ matrix& matrix::operator*=(const matrix &rhs) {
             for(int i = 0; i < myVector.size(); ++i) {
                 for (int j = 0; j < rhs.myVector[0].size(); ++j) {
                     for (int k = 0; k < myVector[0].size(); ++k) {
-                        temp[i][j] = myVector[i][k] * rhs.myVector[k][j];
+                        temp[i][j] += myVector[i][k] * rhs.myVector[k][j];
                     }
                 }
             }
@@ -308,6 +297,18 @@ matrix& matrix::operator*=(const matrix &rhs) {
                 "in the first matrix must be equal to the number of rows in the second matrix.";
         exit(1);
     }
+}
+
+int matrix::getCol() {
+    return myVector[0].size();
+}
+
+int matrix::getRow() {
+    return myVector.size();
+}
+
+vector<vector<double>> matrix::getVector() {
+    return myVector;
 }
 
 
