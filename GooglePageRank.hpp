@@ -14,9 +14,7 @@ class GooglePageRank : public matrix{
     using matrix::matrix;
 
     double p{0.85};
-    vector<vector<double>> Q; //teleporation matrix
     vector<vector<double>> S; //importance matrix
-    vector<vector<double>> M; //transition matrix
 
 public:
 
