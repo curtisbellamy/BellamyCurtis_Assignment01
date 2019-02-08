@@ -14,7 +14,7 @@ using namespace std;
 class matrix {
 protected:
     vector<vector<double>> myVector;
-    static constexpr double TOLERANCE = 0.1;
+    static constexpr double TOLERANCE = 0.01;
 
 
 public:
