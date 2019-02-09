@@ -22,15 +22,12 @@ matrix GooglePageRank::importanceMatrix(matrix m) {
     for(int i = 0; i < m.getRow(); i++) {
         for (int j = 0; j < m.getCol(); j++) {
             sum = getSumCol(j, m);
-            if (m.get_value(i, j) != 0) {
+            if (sum != 0)
                 temp.set_value(i, j, (m.get_value(i, j) / sum));
-            }
-            if( sum == 0){
+            else
                 temp.set_value(i ,j, (1.0 / m.getCol()));
-            }
         }
     }
-    //this->S = temp.getVector();
     return temp;
 }
 
