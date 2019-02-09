@@ -28,10 +28,14 @@ int main() {
         arr[i] = input2[i];
     }
 
+    double array2[16] = {0,1,1,0,
+                         1,0,1,0,
+                         1,1,0,0,
+                         0,0,0,0};
 
-    matrix test(arr, 25);
+    matrix test(arr, input2.size());
 
-    GooglePageRank pr(arr, 25);
+    GooglePageRank pr(arr, input2.size());
 
     matrix importance = pr.importanceMatrix(test);
 

@@ -30,7 +30,7 @@ matrix GooglePageRank::importanceMatrix(matrix m) {
             }
         }
     }
-    this->S = temp.getVector();
+    //this->S = temp.getVector();
     return temp;
 }
 
@@ -72,10 +72,11 @@ matrix GooglePageRank::markov(matrix m) {
             rank.set_value(i, j, 1.0);
         }
     }
-    rank = m * rank;
+
     for (int k = 0; k < 1000; ++k) {
         rank = m * rank;
     }
+
 
     long double sum = 0.0f;
     for (int l = 0; l < rank.getRow(); ++l) {
